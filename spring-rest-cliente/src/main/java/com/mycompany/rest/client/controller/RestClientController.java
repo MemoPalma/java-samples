@@ -78,7 +78,7 @@ public class RestClientController {
 		// Send the request as GET
 		try {
 			ResponseEntity<PersonList> result = 
-					restTemplate.exchange("http://localhost:28080/spring-rest-servidor/agenda/persons",
+					restTemplate.exchange("http://localhost:8080/spring-rest-servidor/agenda/persons",
 							HttpMethod.GET, entity, PersonList.class);
 			// Add to model
 			model.addAttribute("persons", result.getBody().getData());
@@ -110,7 +110,7 @@ public class RestClientController {
 
 		// Send the request as GET
 		try {
-			ResponseEntity<Person> result = restTemplate.exchange("http://localhost:28080/spring-rest-servidor/agenda/person/{id}", HttpMethod.GET, entity, Person.class, id);
+			ResponseEntity<Person> result = restTemplate.exchange("http://localhost:8080/spring-rest-servidor/agenda/person/{id}", HttpMethod.GET, entity, Person.class, id);
 			// Add to model
 			model.addAttribute("person", result.getBody());
 			
@@ -158,7 +158,7 @@ public class RestClientController {
 
 		// Send the request as POST
 		try {
-			ResponseEntity<Person> result = restTemplate.exchange("http://localhost:28080/spring-rest-servidor/agenda/person", HttpMethod.POST, entity, Person.class);
+			ResponseEntity<Person> result = restTemplate.exchange("http://localhost:8080/spring-rest-servidor/agenda/person", HttpMethod.POST, entity, Person.class);
 		} catch (Exception e) {
 			logger.error(e);
 		}
@@ -187,7 +187,7 @@ public class RestClientController {
 
 		// Send the request as GET
 		try {
-			ResponseEntity<Person> result = restTemplate.exchange("http://localhost:28080/spring-rest-servidor/agenda/person/{id}", HttpMethod.GET, entity, Person.class, id);
+			ResponseEntity<Person> result = restTemplate.exchange("http://localhost:8080/spring-rest-servidor/agenda/person/{id}", HttpMethod.GET, entity, Person.class, id);
 			// Add to model
 			model.addAttribute("personAttribute", result.getBody());
 			
@@ -220,7 +220,7 @@ public class RestClientController {
 		HttpEntity<Person> entity = new HttpEntity<Person>(person, headers);
 		
 		// Send the request as PUT
-		ResponseEntity<String> result = restTemplate.exchange("http://localhost:28080/spring-rest-servidor/agenda/person/{id}", HttpMethod.PUT, entity, String.class, id);
+		ResponseEntity<String> result = restTemplate.exchange("http://localhost:8080/spring-rest-servidor/agenda/person/{id}", HttpMethod.PUT, entity, String.class, id);
 
 		// This will resolve to /WEB-INF/jsp/resultpage.jsp
 		return "resultpage";
@@ -244,7 +244,7 @@ public class RestClientController {
 		HttpEntity<String> entity = new HttpEntity<String>(headers);	
 		
 		// Send the request as DELETE
-		ResponseEntity<String> result = restTemplate.exchange("http://localhost:28080/spring-rest-servidor/agenda/person/{id}", HttpMethod.DELETE, entity, String.class, id);
+		ResponseEntity<String> result = restTemplate.exchange("http://localhost:8080/spring-rest-servidor/agenda/person/{id}", HttpMethod.DELETE, entity, String.class, id);
 		
 		// This will resolve to /WEB-INF/jsp/resultpage.jsp
 		return "resultpage";

@@ -12,7 +12,7 @@
     
     
     <jaxws:client id="holaMundoCliente" serviceClass="pe.joedayz.ejemplos.cxf.HolaMundo" 
-    			address="http://localhost:8080/apachecxf-jaxws-get-person/HolaMundo" />
+    			address="http://localhost:8080/apachecxf-jaxws-list-persons/HolaMundo" />
                   
           
 
