@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="
+						http://www.springframework.org/schema/beans 
+							http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- these beans provide a messaging infrastructure for the rewards network -->
+
+	<bean id="jndiTemplate" class="org.springframework.jndi.JndiTemplate">
+		<property name="environment">
+			<props>
+				<prop key="java.naming.factory.initial">com.sun.enterprise.naming.SerialInitContextFactory
+				</prop>
+				<prop key="java.naming.factory.url.pkgs">com.sun.enterprise.naming</prop>
+				<prop key="java.naming.factory.state">com.sun.corba.ee.impl.presentation.rmi.JNDIStateFactoryImpl
+				</prop>
+				<prop key="org.omg.CORBA.ORBInitialHost">localhost</prop>
+				<prop key="org.omg.CORBA.ORBInitialPort">3700</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<!--bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory -->
+	<!--property name="brokerURL" value="vm://embedded?broker.persistent=false" 
+		/ -->
+	<!--property name="brokerURL" value="tcp://localhost:61616"/ -->
+	<!--/bean -->
+
+	<bean id="connectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiTemplate" ref="jndiTemplate" />
+		<property name="jndiName" value="jms/ConnectionFactory" />
+	</bean>
+
+	<!-- <bean id="diningQueue" class="org.apache.activemq.command.ActiveMQQueue"> 
+		<constructor-arg value="rewards.queue.dining"/> </bean> <bean id="confirmationQueue" 
+		class="org.apache.activemq.command.ActiveMQQueue"> <constructor-arg value="rewards.queue.confirmation"/> 
+		</bean> -->
+	<!-- <bean id="diningQueue" class="org.springframework.jndi.JndiObjectFactoryBean"> 
+		<property name="jndiTemplate" ref="jndiTemplate"/> <property name="jndiName" 
+		value="jms/DiningQueue"/> </bean> <bean id="confirmationQueue" class="org.springframework.jndi.JndiObjectFactoryBean"> 
+		<property name="jndiTemplate" ref="jndiTemplate"/> <property name="jndiName" 
+		value="jms/ConfirmationQueue"/> </bean> -->
+
+	<bean id="jmsDestinationResolver" class="org.springframework.jms.support.destination.JndiDestinationResolver">
+		<property name="jndiTemplate" ref="jndiTemplate" />
+		<property name="cache" value="true"/>
+	</bean>
+
+	<bean id="diningQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiTemplate" ref="jndiTemplate"/>
+		<property name="jndiName" value="jms/DiningQueue"/>
+	</bean>
+
+
+	<bean id="confirmationQueue" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiTemplate" ref="jndiTemplate" />
+		<property name="jndiName" value="jms/ConfirmationQueue" />
+	</bean>
+
+</beans>
