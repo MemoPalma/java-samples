@@ -1,12 +1,5 @@
-# Eclipse
-.classpath
-.project
-.settings/
-
-# Intellij
-.idea/
-*.iml
-*.iws
+build/
+bin/
 
 # Mac
 .DS_Store
