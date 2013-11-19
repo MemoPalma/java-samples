@@ -50,6 +50,7 @@ Android y JAX-RS
 
 * library  
 * server
+* wine-cellar-java , Servidor con JAX-RS y cliente con JQuery
 
 Spring DATA
 
