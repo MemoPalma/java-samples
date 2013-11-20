@@ -11,6 +11,7 @@ import edu.upc.tutorial.jaxrs.android.data.LibraryResteasyClient;
 
 public class LibraryApplication extends Application {
 
+	
     private LibraryClient library;
     public static String KEY_BOOK_ISBN = "KEY_BOOK_INDEX";
     public static String LOG_TAG = "JaxrsSample";

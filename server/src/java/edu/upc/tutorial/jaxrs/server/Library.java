@@ -22,29 +22,27 @@ import javax.ws.rs.QueryParam;
  *
  * @author josediaz
  */
-
 @Path("/library")
-@Consumes({ "application/json" })
-@Produces({ "application/json" })
+@Consumes({"application/json"})
+@Produces({"application/json"})
 public class Library {
-    
-       // private static final Logger log = Logger.getLogger(Library.class);
-    private static final Logger log = Logger.getLogger(Library.class.getName());
 
+    // private static final Logger log = Logger.getLogger(Library.class);
+    private static final Logger log = Logger.getLogger(Library.class.getName());
     private static Map<String, Book> books = new LinkedHashMap<String, Book>();
+
     static {
-        Book[] bookarr = new Book[] { 
-                new Book("001", "The Judgment"), 
-                new Book("002", "The Stoker"), 
-                new Book("003", "Jackals and Arabs"), 
-                new Book("004", "The Refusal") 
+        Book[] bookarr = new Book[]{
+            new Book("001", "The Judgment"),
+            new Book("002", "The Stoker"),
+            new Book("003", "Jackals and Arabs"),
+            new Book("004", "The Refusal")
         };
         for (Book book : bookarr) {
             books.put(book.getIsbn(), book);
         }
     }
-    
-    
+
     @GET
     @Path("/books")
     public Collection<Book> getBooks() {
@@ -53,8 +51,7 @@ public class Library {
         log.info("getBooks: " + result);
         return result;
     }
-       
-    
+
     @GET
     @Path("/book/{isbn}")
     public Book getBook(@PathParam("isbn") String id) {
@@ -63,7 +60,7 @@ public class Library {
         log.info("getBook: " + book);
         return book;
     }
-    
+
     @PUT
     @Path("/book/{isbn}")
     public Book addBook(@PathParam("isbn") String id, @QueryParam("title") String title) {
@@ -93,7 +90,5 @@ public class Library {
         //log.infof("removeBook: %s", book);
         log.info("removeBook: " + book);
         return book;
-    }   
-    
-       
+    }
 }

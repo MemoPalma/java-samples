@@ -4,13 +4,16 @@
  */
 package edu.upc.tutorial.jaxrs.server;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  *
  * @author josediaz
  */
+@XmlRootElement
 public class Book {
        
-      private String isbn;
+    private String isbn;
     private String title;
 
     public Book() {

@@ -1,10 +1,59 @@
 // The root URL for the RESTful services
-var rootURL = "http://localhost:8080/cellar/rest/wines";
+var rootURL = "http://localhost:8080/vinos/rest/vinos";
 
 var currentWine;
 
 // Retrieve wine list when application starts 
 findAll();
+
+
+function findAll() {
+	console.log('findAll demo en clase');
+	$.ajax({
+		type: 'GET',
+		url: rootURL,
+		dataType: "json", // data type of response
+		success: renderList
+	});
+}
+
+function renderList(data) {
+	// JAX-RS serializes an empty list as null, and a 'collection of one' as an object (not an 'array of one')
+	var list = data == null ? [] : (data instanceof Array ? data : [data]);
+
+	$('#wineList li').remove();
+	$.each(list, function(index, wine) {
+		$('#wineList').append('<li><a href="#" data-identity="' + wine.id + '">'+wine.name+'</a></li>');
+	});
+}
+
+
+
+
+function search(searchKey) {
+	if (searchKey == '') 
+		findAll();
+	else
+		findByName(searchKey);
+}
+
+function findByName(searchKey) {
+	console.log('findByName: ' + searchKey);
+	$.ajax({
+		type: 'GET',
+		url: rootURL + '/search/' + searchKey,
+		dataType: "json",
+		success: renderList 
+	});
+}
+
+
+
+
+
+
+
+
 
 // Nothing to delete in initial application state
 $('#btnDelete').hide();
@@ -52,12 +101,7 @@ $("img").error(function(){
 
 });
 
-function search(searchKey) {
-	if (searchKey == '') 
-		findAll();
-	else
-		findByName(searchKey);
-}
+
 
 function newWine() {
 	$('#btnDelete').hide();
@@ -65,25 +109,8 @@ function newWine() {
 	renderDetails(currentWine); // Display empty form
 }
 
-function findAll() {
-	console.log('findAll');
-	$.ajax({
-		type: 'GET',
-		url: rootURL,
-		dataType: "json", // data type of response
-		success: renderList
-	});
-}
 
-function findByName(searchKey) {
-	console.log('findByName: ' + searchKey);
-	$.ajax({
-		type: 'GET',
-		url: rootURL + '/search/' + searchKey,
-		dataType: "json",
-		success: renderList 
-	});
-}
+
 
 function findById(id) {
 	console.log('findById: ' + id);
@@ -150,15 +177,7 @@ function deleteWine() {
 	});
 }
 
-function renderList(data) {
-	// JAX-RS serializes an empty list as null, and a 'collection of one' as an object (not an 'array of one')
-	var list = data == null ? [] : (data instanceof Array ? data : [data]);
 
-	$('#wineList li').remove();
-	$.each(list, function(index, wine) {
-		$('#wineList').append('<li><a href="#" data-identity="' + wine.id + '">'+wine.name+'</a></li>');
-	});
-}
 
 function renderDetails(wine) {
 	$('#wineId').val(wine.id);
